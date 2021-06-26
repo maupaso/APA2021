@@ -9,8 +9,12 @@ public class Main {
 
 		int nodeNumber = 0;
 		int edgeNumber = 0;
+		
+		Node[] nodeList;
 
 		String inputType = "";
+		
+		Graph graph = new Graph();
 
 		try {
 			File myObj = new File("src/resources/test_set1/check_v5_s1.dat");
@@ -47,6 +51,20 @@ public class Main {
 				myReader.nextLine();
 				myReader.nextLine();
 			}
+			
+			nodeList = new Node[nodeNumber];
+			
+			for(int i = 0; i < nodeNumber; i++) {
+				Node node = new Node(i+"");
+				
+				nodeList[i] = node;
+				
+				//TESTE INICIALIZAÇÃO GRAPH
+//				graph.addNode(node);
+//				graph.addNode2(node);
+//				System.out.println("NODE[" + i + "] adicionado");
+				//FIM TESTE
+			}
 
 			for(int i = 0; i < edgeNumber; i++) {
 				if(inputType == "data") {
@@ -58,14 +76,29 @@ public class Main {
 					int startNode = myReader.nextInt();
 					int endNode = myReader.nextInt();
 					int cost = myReader.nextInt();
+					
+					if(inputType == "data") {
+						//REQUISITO 13 descrição Trabalho
+						startNode--;
+						endNode--;
+					}
+					
+					nodeList[startNode].addaAjacentNodes(nodeList[endNode], cost);
+					nodeList[startNode].addaAjacentNodes2(nodeList[endNode], cost);
+					
 
 					System.out.println(startNode + " --> " + endNode + " - CUSTO: " + cost);
 				}
 
 			}
 
+			System.out.println("TAMANHO NODELIST: " + nodeList.length);
 
-
+			
+			for(int i = 0; i < nodeList.length; i++) {
+				graph.addNode(nodeList[i]);
+				graph.addNode2(nodeList[i]);
+			}
 
 			myReader.close();
 		} catch (FileNotFoundException e) {
@@ -76,6 +109,12 @@ public class Main {
 		System.out.println("TIPO DE ENTRADA: " + inputType);
 		System.out.println("NÚMERO DE NÓS: " + nodeNumber);
 		System.out.println("NÚMERO DE ARESTAS: " + edgeNumber);
+		
+		graph.printNodeList();
+		graph.printNodeList2();
+		
+		
+		
 
 	}
 
