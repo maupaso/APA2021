@@ -58,12 +58,6 @@ public class Main {
 				Node node = new Node(i+"");
 				
 				nodeList[i] = node;
-				
-				//TESTE INICIALIZAÇÃO GRAPH
-//				graph.addNode(node);
-//				graph.addNode2(node);
-//				System.out.println("NODE[" + i + "] adicionado");
-				//FIM TESTE
 			}
 
 			for(int i = 0; i < edgeNumber; i++) {
@@ -83,21 +77,20 @@ public class Main {
 						endNode--;
 					}
 					
-					nodeList[startNode].addaAjacentNodes(nodeList[endNode], cost);
-					nodeList[startNode].addaAjacentNodes2(nodeList[endNode], cost);
+					nodeList[startNode].addAjacentNodes(nodeList[endNode], cost);
 					
-
 					System.out.println(startNode + " --> " + endNode + " - CUSTO: " + cost);
 				}
-
 			}
+			
+			System.out.println("=====================================================");
+			System.out.println("=====================================================");
 
 			System.out.println("TAMANHO NODELIST: " + nodeList.length);
 
 			
 			for(int i = 0; i < nodeList.length; i++) {
 				graph.addNode(nodeList[i]);
-				graph.addNode2(nodeList[i]);
 			}
 
 			myReader.close();
@@ -110,9 +103,25 @@ public class Main {
 		System.out.println("NÚMERO DE NÓS: " + nodeNumber);
 		System.out.println("NÚMERO DE ARESTAS: " + edgeNumber);
 		
-		graph.printNodeList();
-		graph.printNodeList2();
+		System.out.println("=====================================================");
+		System.out.println("=====================================================");
 		
+		graph.printNodeList();
+		
+		graph = Graph.calculateShortestPathFromSource(graph, graph.getNodes()[0]);
+		
+		System.out.println("=====================================================");
+		System.out.println("=====================================================");
+
+		Node[] nodes = graph.getNodes();
+		
+		for(int i = 0; i < nodes.length; i++) {
+			System.out.println("NODE: " + nodes[i].name + " - " + nodes[i].getDistance());
+			nodes[i].printShortestPath();
+		}
+		
+		System.out.println("=====================================================");
+		System.out.println("=====================================================");
 		
 		
 
